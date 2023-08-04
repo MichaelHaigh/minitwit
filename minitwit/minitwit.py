@@ -242,7 +242,6 @@ def follow_user(username):
         dict(whoid=session["user_id"], whomid=whom_id),
     )
     # db.commit()
-    init_db()
     flash('You are now following "%s"' % username)
     return redirect(url_for("user_timeline", username=username))
 
