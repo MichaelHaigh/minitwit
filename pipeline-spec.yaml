@@ -16,7 +16,7 @@ steps:
   build_push_image:
     title: Build and push Docker image
     type: build
-    image_name: "michaelhaigh/minitwit" # Change michaelhaigh to your dockerhub username
+    image_name: "michaelhaigh/minitwit" # Change to your docker registry
     working_directory: "${{clone_repo}}"
     tag: "${{CF_SHORT_REVISION}}"
     dockerfile: Dockerfile
@@ -24,11 +24,11 @@ steps:
     stage: build
   astra_control_toolkit_backup:
       title: Astra Control Toolkit Create Backup
-      type: netapp-tme/astra-control-toolkit
+      type: netapp-astra/astra-control-toolkit
       stage: backup
       arguments:
         AC_CONFIG_SECRET: ac_config_yaml # Ensure this matches your shared secret
-        ACTOOLKIT_VERSION: 2.6.7
+        ACTOOLKIT_VERSION: 2.6.8
         APP_ID: 52a2a242-cdb3-436b-966d-ba8c48e8e8df # Change to your Astra Control APP_ID
         COMMANDS:
           - actoolkit create backup $APP_ID cf-backup-$(date "+%Y%m%d%H%M%S")
@@ -41,5 +41,5 @@ steps:
     namespace: minitwit
     service: minitwit
     candidate:
-      image: michaelhaigh/minitwit:${{CF_SHORT_REVISION}} # Change michaelhaigh to your dockerhub username
+      image: michaelhaigh/minitwit:${{CF_SHORT_REVISION}} # Change to your docker registry
       registry: dockerhub
