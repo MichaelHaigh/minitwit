@@ -20,7 +20,7 @@ steps:
     working_directory: "${{clone_repo}}"
     tag: "${{CF_SHORT_REVISION}}"
     dockerfile: Dockerfile
-    registry: dockerhub
+    registry: dockerhub # Change this to your Codefresh docker registry name
     stage: build
   astra_control_toolkit_backup:
       title: Astra Control Toolkit Create Backup
@@ -37,9 +37,9 @@ steps:
     type: deploy
     stage: deploy
     kind: kubernetes
-    cluster: gke_astracontroltoolkitdev_us-central1-b_gke-demo-cluster 
+    cluster: gke_astracontroltoolkitdev_us-central1-b_gke-demo-cluster # Change to your K8S cluster
     namespace: minitwit
     service: minitwit
     candidate:
       image: michaelhaigh/minitwit:${{CF_SHORT_REVISION}} # Change to your docker registry
-      registry: dockerhub
+      registry: dockerhub # Change this to your Codefresh docker registry name
